@@ -4,5 +4,5 @@ import { db } from "../firebase/firebase";
 
 //return email của người đang chat
 export const getOtherUser = (users, currentUser) => {
-    return users?.filter((user) => user !== currentUser.email)[0];
+    return users?.filter((user) => user != currentUser.email)[0];
 };

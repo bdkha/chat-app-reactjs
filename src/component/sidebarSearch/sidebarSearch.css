@@ -6,7 +6,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    color: #848488;
+    color: #d1d7db;
     border-bottom: 1px solid rgba(134, 150, 160, 0.15);
 }
 
@@ -39,6 +39,10 @@
     outline: none;
     font-size: 14px;
     text-overflow: ellipsis;
+    color: #d1d7db;
+}
+
+#search-input::-webkit-input-placeholder {
     color: #d1d7db;
 }
 

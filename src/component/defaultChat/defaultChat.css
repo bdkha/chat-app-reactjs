@@ -1,0 +1,19 @@
+.default-chat-container {
+    background-color: #222e35;
+    height: 100%;
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.default-text {
+    width: 300px;
+    font-size: 24px;
+    font-weight: 600;
+    font-weight: 300;
+    color: #e9edefe0;
+    white-space: wrap;
+    text-align: center;
+}

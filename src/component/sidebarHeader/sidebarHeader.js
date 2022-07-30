@@ -15,8 +15,8 @@ const SidebarHeader = ({ userAvt }) => {
     const navigate = useNavigate();
 
     const logOut = () => {
-        auth.signOut();
         navigate("/");
+        auth.signOut();
     };
     return (
         <div className="sidebar-header-container">

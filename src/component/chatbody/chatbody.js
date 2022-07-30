@@ -11,7 +11,7 @@ import { useParams } from "react-router-dom";
 import "./chatbody.css";
 import Avatar from "../avatar/avatar";
 import MessageSendInput from "../messageSendInput/messageSendInput";
-import { collection, doc, orderBy, query } from "firebase/firestore";
+import { collection, doc, orderBy, query, where } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import {
     useCollectionData,
@@ -26,7 +26,7 @@ const ChatBody = ({ curUser }) => {
 
     const endMessage = React.useRef(); //ref end of chat
     const { contactID } = useParams(); //contactID: id của đoạn chat
-
+    console.log(contactID);
     //chuyển đến cuối chat
     const ScrollToBottom = () => {
         endMessage.current.scrollIntoView({ behavior: "smooth" });
@@ -41,8 +41,19 @@ const ChatBody = ({ curUser }) => {
     //lấy danh sách tin nhắn
     const [messages] = useCollectionData(messagesQuery);
 
-    //lấy thông tin user
+    //lấy user tham gia chat
     const [memberChat] = useDocumentData(doc(db, "chats", contactID));
+
+    const otherUserEmail = getOtherUser(memberChat?.users, curUser);
+    console.log(otherUserEmail);
+
+    const q = query(
+        collection(db, "users"),
+        where("email", "==", otherUserEmail ? otherUserEmail : "")
+    );
+
+    const [otherUser] = useCollectionData(q);
+    console.log(otherUserEmail, otherUser);
 
     //scroll to bottom when new message
     useEffect(() => {
@@ -57,10 +68,13 @@ const ChatBody = ({ curUser }) => {
         <div className="chat-body-container">
             <div className="chat-header">
                 <div className="chat-header-left">
-                    <Avatar width="40px" />
+                    <Avatar
+                        width="40px"
+                        avtSrc={otherUser ? otherUser[0]?.photoURL : undefined}
+                    />
                     <div className="opposite-details">
                         <div className="opposite-name">
-                            {getOtherUser(memberChat?.users, curUser)}
+                            {otherUser ? otherUser[0]?.displayName : ""}
                         </div>
                         <div className="opposite-status"></div>
                     </div>
@@ -93,12 +107,16 @@ const ChatBody = ({ curUser }) => {
                 </div>
             </div>
             <div className="chat-content" id="chat-content">
-                {messages?.map((message) => (
-                    <Message
-                        message={message}
-                        typeOfMessage={message.sender == curUser.email ? 0 : 1}
-                    />
-                ))}
+                {messages
+                    ?.filter((message) => message.text != "")
+                    .map((message) => (
+                        <Message
+                            message={message}
+                            typeOfMessage={
+                                message.sender == curUser.email ? 0 : 1
+                            }
+                        />
+                    ))}
                 <div ref={endMessage}></div>
             </div>
             <MessageSendInput curUser={curUser} contactID={contactID} />

@@ -20,30 +20,42 @@ const SearchBodyCard = ({ user, curUser }) => {
     //query lấy thông tin user
     const q = query(
         collection(db, "chats"),
-        where("users", "array-contains-any", [curUser.email, user.email])
+        where("users", "array-contains", [curUser.email, user.email])
     );
 
     //response trả về
     const [response] = useCollection(q);
 
+    const responseData = response?.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+    }));
+
+    console.log(responseData);
+
     //check xem đã có chat với user này chưa
     const checkFriend = () => {
-        if (response?.docs.length > 0) {
+        if (responseData.length > 0) {
+            console.log("da co chat");
             return true;
         }
+        console.log("chua co chat");
         return false;
     };
 
     //tạo chat mới
     const addNewChat = async () => {
-        const newChat = {
+        console.log("add new chat");
+        let newChat = {
             users: [curUser.email, user.email],
             lastMessage: "",
             lastTime: serverTimestamp(),
         };
+        //add new chat
         const docRef = await addDoc(collection(db, "chats"), newChat);
 
-        await addDoc(collection(db, "chats", docRef.id, "messages"), {
+        //add content chat
+        await addDoc(collection(db, `chats/${docRef.id}/messages`), {
             text: "",
             sender: "",
             timestamp: serverTimestamp(),
@@ -53,11 +65,12 @@ const SearchBodyCard = ({ user, curUser }) => {
 
     //xử lý khi click vào user
     const handleClick = async () => {
-        if (checkFriend) {
-            await updateDoc(db, `chats/${response?.docs[0].id}`, {
+        console.log(checkFriend());
+        if (checkFriend()) {
+            await updateDoc(db, `chats/${responseData[0]?.id}`, {
                 lastTime: serverTimestamp(),
             });
-            navigate(`/message/${response?.docs[0].id}`);
+            navigate(`/message/${response[0]?.id}`);
         } else {
             addNewChat();
         }

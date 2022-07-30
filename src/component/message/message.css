@@ -1,0 +1,29 @@
+.personal-message {
+    padding: 10px 20px 24px 10px;
+    width: fit-content;
+    max-width: calc(60%);
+    min-width: 50px;
+    border-radius: 5px;
+    color: #dce3e5;
+    position: relative;
+    margin-top: 3px;
+}
+
+.message-time {
+    position: absolute;
+    bottom: 2px;
+    right: 10px;
+    color: #e6ebef;
+    font-size: 10px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.chat-receive {
+    background-color: #252d30;
+    margin-right: auto;
+}
+
+.chat-send {
+    background-color: #00b090;
+    margin-left: auto;
+}

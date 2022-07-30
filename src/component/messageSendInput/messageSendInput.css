@@ -1,0 +1,78 @@
+.message-send-input-container {
+    display: flex;
+
+    flex-direction: row;
+    align-items: center;
+    background-color: #202c33;
+    width: 100%;
+    padding: 5px 17px 5px 10px;
+    color: #8696a0;
+}
+
+.message-send-icon-left {
+    padding: 5px 10px;
+    display: flex;
+    flex-direction: row;
+    background-color: transparent;
+}
+
+.m-r-8 {
+    margin-right: 8px;
+}
+
+.p-8 {
+    padding: 8px;
+}
+
+.p-5-10 {
+    padding: 5px 10px;
+}
+
+.wh-26 {
+    width: 26px;
+    height: 26px;
+}
+
+.wh-24 {
+    width: 24px;
+    height: 24px;
+}
+
+.send-toolbar-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+}
+
+.message-send-input {
+    margin: 5px 10px;
+    flex: 1;
+    background-color: #2a3942;
+    border-radius: 5px;
+}
+
+#message-input {
+    padding: 9px 12px 11px;
+    width: 100%;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    font-size: 16px;
+    color: #8696a0;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+#message-input::placeholder {
+    color: #8696a0;
+}
+
+.show-icon {
+    visibility: inherit;
+}
+
+.hidden-icon {
+    visibility: hidden;
+}

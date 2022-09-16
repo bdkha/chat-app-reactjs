@@ -8,7 +8,7 @@ import "./sidebarChatCard.css";
 import Avatar from "../avatar/avatar";
 
 const SidebarChatCard = ({ contact, curUser }) => {
-    const positionEmail = getOtherUser(contact.users, curUser); //emil cua user khac
+    const positionEmail = getOtherUser(contact.users, curUser); 
 
     const lastTime =
         contact.lastTime == null
@@ -16,7 +16,7 @@ const SidebarChatCard = ({ contact, curUser }) => {
             : `${new Date(contact.lastTime.seconds * 1000).getHours()}:
                         ${new Date(
                             contact.lastTime.seconds * 1000
-                        ).getMinutes()}`; //thoi gian cuoi cung cua tin nhan
+                        ).getMinutes()}`; 
     const q = query(
         collection(db, "users"),
         where("email", "==", positionEmail)

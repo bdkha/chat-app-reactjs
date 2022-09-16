@@ -20,28 +20,28 @@ import {
 import { getOtherUser } from "../../common/common";
 import Message from "../message/message";
 
-//noi dung chat
-const ChatBody = ({ curUser }) => {
-    //curUser: user đang đăng nhập
 
-    const endMessage = React.useRef(); //ref end of chat
-    const { contactID } = useParams(); //contactID: id của đoạn chat
+const ChatBody = ({ curUser }) => {
+    
+
+    const endMessage = React.useRef(); 
+    const { contactID } = useParams(); 
     console.log(contactID);
-    //chuyển đến cuối chat
+    
     const ScrollToBottom = () => {
         endMessage.current.scrollIntoView({ behavior: "smooth" });
     };
 
-    //query lấy list tin nhắn
+    
     const messagesQuery = query(
         collection(db, `chats/${contactID}/messages`),
         orderBy("timestamp", "asc")
     );
 
-    //lấy danh sách tin nhắn
+    
     const [messages] = useCollectionData(messagesQuery);
 
-    //lấy user tham gia chat
+    
     const [memberChat] = useDocumentData(doc(db, "chats", contactID));
 
     const otherUserEmail = getOtherUser(memberChat?.users, curUser);
@@ -55,7 +55,7 @@ const ChatBody = ({ curUser }) => {
     const [otherUser] = useCollectionData(q);
     console.log(otherUserEmail, otherUser);
 
-    //scroll to bottom when new message
+    
     useEffect(() => {
         ScrollToBottom();
     }, [messages]);

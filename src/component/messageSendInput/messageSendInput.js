@@ -16,11 +16,11 @@ const MessageSendInput = ({ curUser, contactID }) => {
     const [value, setValue] = React.useState("");
 
     const sendMessage = async () => {
-        let tempValue = value; //lưu lại giá trị value
+        let tempValue = value; 
 
-        setValue(""); //set value = "" để tránh lỗi khi gửi tin nhắn nhanh
+        setValue(""); 
 
-        //thêm tin nhắn vào db
+        
         if (value.trim() !== "") {
             let tempM = {
                 sender: curUser.email,
@@ -37,7 +37,7 @@ const MessageSendInput = ({ curUser, contactID }) => {
         }
     };
 
-    //gửi tin nhắn khi nhấn enter
+    
     const handleKeyPress = (e) => {
         if (e.key === "Enter") {
             sendMessage();

@@ -1,7 +1,7 @@
 import React from "react";
 import "./avatar.css";
 
-//avatar of user component
+
 const Avatar = ({ width, avtSrc }) => {
     return (
         <div

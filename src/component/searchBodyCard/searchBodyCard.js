@@ -13,17 +13,17 @@ import { db } from "../../firebase/firebase";
 import Avatar from "../avatar/avatar";
 import "./searchBodyCard.css";
 
-//user được tìm thấy
+
 const SearchBodyCard = ({ user, curUser }) => {
     const navigate = useNavigate();
 
-    //query lấy thông tin user
+    
     const q = query(
         collection(db, "chats"),
         where("users", "array-contains", [curUser.email, user.email])
     );
 
-    //response trả về
+    
     const [response] = useCollection(q);
 
     const responseData = response?.docs.map((doc) => ({
@@ -33,7 +33,7 @@ const SearchBodyCard = ({ user, curUser }) => {
 
     console.log(responseData);
 
-    //check xem đã có chat với user này chưa
+    
     const checkFriend = () => {
         if (responseData.length > 0) {
             console.log("da co chat");
@@ -43,7 +43,7 @@ const SearchBodyCard = ({ user, curUser }) => {
         return false;
     };
 
-    //tạo chat mới
+    
     const addNewChat = async () => {
         console.log("add new chat");
         let newChat = {
@@ -51,10 +51,10 @@ const SearchBodyCard = ({ user, curUser }) => {
             lastMessage: "",
             lastTime: serverTimestamp(),
         };
-        //add new chat
+        
         const docRef = await addDoc(collection(db, "chats"), newChat);
 
-        //add content chat
+        
         await addDoc(collection(db, `chats/${docRef.id}/messages`), {
             text: "",
             sender: "",
@@ -63,7 +63,7 @@ const SearchBodyCard = ({ user, curUser }) => {
         navigate(`/message/${docRef.id}`);
     };
 
-    //xử lý khi click vào user
+    
     const handleClick = async () => {
         console.log(checkFriend());
         if (checkFriend()) {

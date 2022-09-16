@@ -10,13 +10,13 @@ import SidebarSearch from "../sidebarSearch/sidebarSearch";
 import "./sidebar.css";
 import SearchBody from "../searchContent/searchBody";
 
-//sidebar component
+
 const Sidebar = ({ curUser }) => {
     const searchText = useSelector((state) => state.searchText.value);
     const [user] = useAuthState(auth);
     const [snapshot, loading, err] = useCollection(collection(db, "chats"));
 
-    //contact đã từng chat and data
+    
     const contactsData = snapshot?.docs
         .filter((doc) => doc.data().users.includes(curUser.email))
         .map((doc) => ({
@@ -24,7 +24,7 @@ const Sidebar = ({ curUser }) => {
             ...doc.data(),
         }));
 
-    // dữ liệu các đoạn chat
+    
 
     return (
         <div className="sidebar-container">

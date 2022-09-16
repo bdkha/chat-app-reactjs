@@ -5,7 +5,7 @@ import "./login.css";
 import { useSignInWithGoogle } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/firebase";
 
-//login component
+
 const Login = () => {
     const [signInWithGoogle, user, loading, err] = useSignInWithGoogle(auth);
     return (
